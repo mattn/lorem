@@ -22,7 +22,7 @@ var (
 	count = flag.Int("count", 30, "count of words")
 )
 
-func lorem(count int) (string, error) {
+func loremEn(count int) (string, error) {
 	if count <= 0 {
 		count = 30
 	}
@@ -70,7 +70,7 @@ func lorem(count int) (string, error) {
 		if sentence == 0 {
 			word = string(unicode.ToUpper(rune(word[0]))) + word[1:]
 		}
-		sentence += 1
+		sentence++
 		ret = append(ret, word)
 		if (sentence > 5 && rand.Int() < 10000) || i == count-1 {
 			endc := ""
@@ -91,7 +91,7 @@ func lorem(count int) (string, error) {
 	return strings.Join(ret, ""), nil
 }
 
-func lorem_ja(count int) (string, error) {
+func loremJa(count int) (string, error) {
 	home := os.Getenv("HOME")
 	if home == "" {
 		home = os.Getenv("USERPROFILE")
@@ -186,9 +186,9 @@ func main() {
 	var content string
 	var err error
 	if *ja {
-		content, err = lorem_ja(*count)
+		content, err = loremJa(*count)
 	} else {
-		content, err = lorem(*count)
+		content, err = loremEn(*count)
 	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
